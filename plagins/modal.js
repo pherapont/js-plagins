@@ -1,11 +1,12 @@
 function _createModal(options) {
 	const modal = document.createElement('div')
+	const MODAL_WIDTH = '600px'
 	modal.classList.add('modal')
 	modal.insertAdjacentHTML('afterbegin', `
 		<div class="modal__overlay">
-			<div class="modal__window" style="width: ${options.width}">
+			<div class="modal__window" style="width: ${options.width || MODAL_WIDTH}">
 				<div class="modal__header">
-					<span class="modal__title">${options.title}</span>
+					<span class="modal__title">${options.title || 'Modal window'}</span>
 					${options.closable ? '<span class="modal__close">&#10008;</span>' : ''}
 				</div>
 				<div class="modal__content">${options.content}</div>
@@ -22,31 +23,18 @@ function _createModal(options) {
 
 $.modal = function(options) {
 	const $modal = _createModal(options)
-	let isOpen = false
+	let closing = false
 	const ANIMATION_SPEED = 300
-	const $closeBtn = $modal.querySelector('.modal__close')
-	const $overlay = $modal.querySelector('.modal__overlay')
 	return {
 		open() {
-			!isOpen && $modal.classList.add('open')
-			isOpen = true
-			$closeBtn.addEventListener('click', modal.close)
-			window.addEventListener('click', function(e) {
-				if (e.target === $overlay)  {return modal.close()}
-			})
+			!closing && $modal.classList.add('open')
 		},
 		close() {
-			if (isOpen) {
-				$modal.classList.add('close')
-				$closeBtn.removeEventListener('click', modal.close)
-				window.removeEventListener('click', function(e) {
-					if (e.target === $overlay)  {return modal.close()}
-				})
-			}
+			$modal.classList.remove('open')
+			$modal.classList.add('hide')
 			setTimeout(() => {
-				$modal.classList.remove('open')
-				$modal.classList.remove('close')
-				isOpen = false
+				closing = true
+				$modal.classList.remove('hide')
 			}, ANIMATION_SPEED)
 			
 		},

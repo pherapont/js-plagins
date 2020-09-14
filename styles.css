@@ -38,11 +38,11 @@ body {
 	transform: translateY(200px);
 }
 
-.modal.close .modal__window {
+.modal.hide .modal__window {
 	transform: translateY(-200px);
 }
 
-.modal.open .modal__overlay {
+.modal.hide .modal__overlay {
 	background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -66,7 +66,6 @@ body {
 }
 
 .modal__window {
-	width: 600px;
 	background-color: #fff;
 	margin: 0 auto;
 	padding: 20px;
