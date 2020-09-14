@@ -26,8 +26,6 @@ body {
 	margin-bottom: 30px;
 }
 
-.modal {}
-
 .modal.open .modal__overlay,
 .modal.open .modal__window {
 	opacity: 1;
