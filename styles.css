@@ -117,4 +117,11 @@ body {
 	padding: 10px 20px;
 	background-color: #112288;
 	color: #fff;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.modal__btn:hover {
+	background-color: #882211;
 }

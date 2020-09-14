@@ -9,7 +9,7 @@ function _createModal(options) {
 					<span class="modal__title">${options.title || 'Modal window'}</span>
 					${options.closable ? '<span class="modal__close" data-close="true">&#10008;</span>' : ''}
 				</div>
-				<div class="modal__content">${options.content}</div>
+				<div class="modal__content" data-content>${options.content}</div>
 				<div class="modal__footer">
 					<button class="modal__btn">Ok</button>
 					<button class="modal__btn">Cancel</button>
@@ -47,7 +47,7 @@ $.modal = function(options) {
 	const listener = event => {
 		if (event.target.getAttribute('data-close')) modal.close()
 	}
-	
+
 	$modal.addEventListener('click', listener)
 	
 	return Object.assign(modal, {
@@ -55,6 +55,9 @@ $.modal = function(options) {
 			$modal.parentNode.removeChild($modal)
 			$modal.removeEventListener('click', listener)
 			destroyed = true
+		},
+		setContent (html) {
+			$modal.querySelector('[data-content]').innerHTML = html
 		}
 	})
 }
