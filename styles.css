@@ -119,9 +119,13 @@ body {
 	color: #fff;
 	border-radius: 8px;
 	cursor: pointer;
-	transition: background 0.2s ease;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal__btn.modal__btn--red {
+	background-color: #882211;
 }
 
 .modal__btn:hover {
-	background-color: #882211;
+	transform: scale(1.02);
 }

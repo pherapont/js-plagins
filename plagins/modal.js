@@ -1,3 +1,22 @@
+function _createModalButton(options) {
+	const button = document.createElement('button')
+	button.classList.add('modal__btn')
+	if (options.type) button.classList.add(options.type)
+	button.innerHTML = options.text
+	button.addEventListener('click', options.handler)
+	return button
+}
+
+function __createModalFooter(options) {
+	if (!options) { return '' }
+	const modalFooter = document.createElement('div')
+	modalFooter.classList.add('modal__footer')
+	options.forEach((btn) => {
+		modalFooter.append(_createModalButton(btn))
+	})
+	return modalFooter
+}
+
 function _createModal(options) {
 	const modal = document.createElement('div')
 	const MODAL_WIDTH = '600px'
@@ -10,13 +29,11 @@ function _createModal(options) {
 					${options.closable ? '<span class="modal__close" data-close="true">&#10008;</span>' : ''}
 				</div>
 				<div class="modal__content" data-content>${options.content}</div>
-				<div class="modal__footer">
-					<button class="modal__btn">Ok</button>
-					<button class="modal__btn">Cancel</button>
-				</div>
 			</div>
 		</div>
 	`)
+	const dataContent = modal.querySelector('[data-content]')
+	dataContent.parentNode.append(__createModalFooter(options.buttons))
 	document.body.appendChild(modal)
 	return modal
 }
