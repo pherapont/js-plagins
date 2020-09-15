@@ -11,19 +11,54 @@ body {
 }
 
 .container {
-	max-width: 1400px;
-	margin: 0 auto;
+	max-width: 1200px;
+	margin: 100px auto;
 	padding: 0 15px;
 }
 
-.title {
-	color: #113355;
-	text-align: center;
-	margin: 60px 0;
+.row {
+	display: flex;
+	width: 100%;
+	min-height: 100%;
+	margin: 0 -15px;
 }
 
-.content {
-	margin-bottom: 30px;
+.col {
+	flex: 0 0 33.333%;
+	height: 100%;
+	padding: 0 15px;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	background-color: #94B549FF;
+}
+
+.card__image {
+	width: 100%;
+	min-height: 300px;
+	margin-bottom: 20px;
+}
+
+.card__image img {
+	object-fit: cover;
+	width: 100%;
+	height: 300px;
+}
+
+.card__title {
+	padding-left: 30px;
+	font-size: 30px;
+	color: #F90;
+	font-weight: bold;
+	letter-spacing: 3px;
+}
+
+.card__footer {
+	padding: 20px;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .modal.open .modal__overlay,
@@ -112,20 +147,27 @@ body {
 	justify-content: flex-end;
 }
 
-.modal__btn {
+.btn {
 	margin-left: 20px;
 	padding: 10px 20px;
-	background-color: #112288;
 	color: #fff;
 	border-radius: 8px;
 	cursor: pointer;
-	transition: background 0.2s ease, transform 0.2s ease;
+	transition: background 0.2s ease;
 }
 
-.modal__btn.modal__btn--red {
-	background-color: #882211;
+.btn.btn--blue {
+	background-color: rgba(16, 34, 135, 0.8);
 }
 
-.modal__btn:hover {
-	transform: scale(1.02);
+.btn.btn--red {
+	background-color: rgba(136, 34, 17, 0.8);
+}
+
+.btn.btn--blue:hover {
+	background-color: rgba(16, 34, 135, 1);
+}
+
+.btn.btn--red:hover {
+	background-color: rgba(136, 34, 17, 1);
 }

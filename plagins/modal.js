@@ -1,20 +1,22 @@
-function _createModalButton(options) {
-	const button = document.createElement('button')
-	button.classList.add('modal__btn')
-	if (options.type) button.classList.add(options.type)
-	button.innerHTML = options.text
-	button.addEventListener('click', options.handler)
-	return button
+function noop() {}
+
+function _createModalButton(btn) {
+	const $button = document.createElement('button')
+	$button.classList.add('btn')
+	$button.classList.add(`btn--${btn.type || 'blue'}`)
+	$button.innerHTML = btn.text
+	$button.onclick = btn.handler || noop
+	return $button
 }
 
-function __createModalFooter(options) {
-	if (!options) { return '' }
-	const modalFooter = document.createElement('div')
-	modalFooter.classList.add('modal__footer')
-	options.forEach((btn) => {
-		modalFooter.append(_createModalButton(btn))
+function __createModalFooter(buttons) {
+	if (!buttons) { return '' }
+	const $modalFooter = document.createElement('div')
+	$modalFooter.classList.add('modal__footer')
+	buttons.forEach((btn) => {
+		$modalFooter.append(_createModalButton(btn))
 	})
-	return modalFooter
+	return $modalFooter
 }
 
 function _createModal(options) {
@@ -51,6 +53,7 @@ $.modal = function(options) {
 			!closing && $modal.classList.add('open')
 		},
 		close() {
+			this.onClose()
 			$modal.classList.remove('open')
 			$modal.classList.add('hide')
 			closing = true
@@ -58,6 +61,9 @@ $.modal = function(options) {
 				closing = false
 				$modal.classList.remove('hide')
 			}, ANIMATION_SPEED)
+		},
+		onClose() {
+			console.log('Окно закрывается!')
 		}
 	}
 

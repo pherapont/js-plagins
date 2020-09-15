@@ -15,7 +15,7 @@ const modal = $.modal({
 		},
 		{
 			text: 'Cancel',
-			type: 'modal__btn--red',
+			type: 'red',
 			handler() {
 				modal.close()
 			}
