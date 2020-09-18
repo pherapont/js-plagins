@@ -74,7 +74,7 @@ body {
 }
 
 .modal.open .modal__window {
-	transform: translateY(200px);
+	transform: translateY(100px);
 }
 
 .modal.hide .modal__window {
@@ -126,6 +126,13 @@ body {
 .modal__content {
 	flex: 1 1 auto;
 	padding: 30px 0;
+	align-self: center;
+}
+
+.modal__content img {
+	width: 400px;
+	height: 300px;
+	object-fit: cover;
 }
 
 .modal__text {
