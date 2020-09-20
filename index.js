@@ -1,7 +1,7 @@
-const cardData = [
-	{id: 1, title: 'Яблоко', price: 40, img: './img/apple.jpg'},
-	{id: 2, title: 'Апельсин', price: 50, img: './img/orange.jpg'},
-	{id: 3, title: 'Манго', price: 100, img: './img/mango.jpg'},
+let cardData = [
+	{id: 1, title: 'яблоки', price: 40, img: './img/apple.jpg'},
+	{id: 2, title: 'апельсины', price: 50, img: './img/orange.jpg'},
+	{id: 3, title: 'манго', price: 100, img: './img/mango.jpg'},
 ]
 
 const toHtml = (card) => {
@@ -13,19 +13,16 @@ const toHtml = (card) => {
 				</div>
 				<span class="card__title">${card.title}</span>
 				<div class="card__footer">
-					<button class="btn btn--blue" data-btn="price">Цена</button>
-					<button class="btn btn--red">Удалить</button>
+					<button class="btn btn--blue" data-btn="price" data-id="${card.id}">Цена</button>
+					<button class="btn btn--red" data-btn="remove" data-id="${card.id}">Удалить</button>
 				</div>
 			</div>
 		</div>
 	`
 }
 
-const modal = $.modal({
-	title: 'Модальное окно №1',
-	content: `<p class="modal__text">Lorem ipsum dolor sit.</p>
-		<p class="modal__text">Lorem ipsum dolor sit.</p>
-		<p class="modal__text">Lorem ipsum dolor sit.</p>`,
+const priceModal = $.modal({
+	title: 'Товары',
 	closable: true,
 	width: '400px',
 	animation: 'from-top',
@@ -34,14 +31,7 @@ const modal = $.modal({
 			text: 'Ok',
 			type: '',
 			handler() {
-				modal.close()
-			}
-		},
-		{
-			text: 'Cancel',
-			type: 'red',
-			handler() {
-				modal.close()
+				priceModal.close()
 			}
 		}
 	]
@@ -54,13 +44,27 @@ const render = () => {
 
 document.addEventListener('click', (event) => {
 	let button = event.target.dataset.btn
+	let id = +event.target.dataset.id
+	const card = cardData.find((item) => item.id === id)
 	if (button === 'price') {
-		modal.open()
+		priceModal.setContent(`<p>Цена на ${card.title} равна ${card.price}$</p>`)
+		priceModal.open()
+	} 
+	else if (button === 'remove') {
+		confirm()
+		.then (() => {
+			console.log(id)
+			cardData.filter((item) =>{ 
+				return item.id !== id
+			})
+			console.log(cardData)
+			render()
+		}) 
+		.catch()
 	}
 })
 
 render()
-
 
 
 

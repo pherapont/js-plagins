@@ -191,10 +191,18 @@ body {
 	background-color: rgba(136, 34, 17, 0.8);
 }
 
+.btn.btn--green {
+	background-color: rgba(34, 136, 17, 0.8);
+}
+
 .btn.btn--blue:hover {
 	background-color: rgba(16, 34, 135, 1);
 }
 
 .btn.btn--red:hover {
 	background-color: rgba(136, 34, 17, 1);
+}
+
+.btn.btn--green:hover {
+	background-color: rgba(34, 136, 17, 1);
 }
