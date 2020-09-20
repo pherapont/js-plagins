@@ -73,22 +73,6 @@ body {
 	z-index: 1000;
 }
 
-.modal.open .modal__window {
-	transform: translateY(100px);
-}
-
-.modal.hide .modal__window {
-	transform: translateY(-200px);
-}
-
-.modal.open .modal__overlay {
-	background-color: rgba(0, 0, 0, 0.7);
-}
-
-.modal.hide .modal__overlay {
-	background-color: rgba(0, 0, 0, 0);
-}
-
 .modal__window, .modal__overlay {
 	opacity: 0;
 	z-index: -1;
@@ -112,8 +96,44 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	transform: translateY(-200px);
 	transition: transform 0.3s ease-in;
+}
+/* =============================================== */
+
+.modal.modal__from-top .modal__window {
+	transform: translateY(-200px);
+}
+
+.modal.modal__from-top.open .modal__window {
+	transform: translateY(100px);
+}
+
+.modal.modal__from-top.hide .modal__window {
+	transform: translateY(-200px);
+}
+/* ===================================================== */
+
+.modal.modal__from-left .modal__window {
+	transform: translateX(-200px);
+}
+
+.modal.modal__from-left.open .modal__window {
+	transform: translateX(100px);
+}
+
+.modal.modal__from-left.hide .modal__window {
+	transform: translateX(-200px);
+}
+/* ======================================================== */
+
+
+
+.modal.open .modal__overlay {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal.hide .modal__overlay {
+	background-color: rgba(0, 0, 0, 0);
 }
 
 .modal__header {

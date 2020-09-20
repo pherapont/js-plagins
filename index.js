@@ -4,92 +4,62 @@ const cardData = [
 	{id: 3, title: 'Манго', price: 100, img: './img/mango.jpg'},
 ]
 
-const createCardsAndModals = new Promise((res, rej) => {
-	const a = $.card(cardData)
-	res(a) 
+const toHtml = (card) => {
+	return `
+		<div class="col">
+			<div class="card">
+				<div class="card__image">
+					<img src="${card.img}" alt="${card.title}">
+				</div>
+				<span class="card__title">${card.title}</span>
+				<div class="card__footer">
+					<button class="btn btn--blue" data-btn="price">Цена</button>
+					<button class="btn btn--red">Удалить</button>
+				</div>
+			</div>
+		</div>
+	`
+}
+
+const modal = $.modal({
+	title: 'Модальное окно №1',
+	content: `<p class="modal__text">Lorem ipsum dolor sit.</p>
+		<p class="modal__text">Lorem ipsum dolor sit.</p>
+		<p class="modal__text">Lorem ipsum dolor sit.</p>`,
+	closable: true,
+	width: '400px',
+	animation: 'from-top',
+	buttons: [
+		{
+			text: 'Ok',
+			type: '',
+			handler() {
+				modal.close()
+			}
+		},
+		{
+			text: 'Cancel',
+			type: 'red',
+			handler() {
+				modal.close()
+			}
+		}
+	]
 })
 
-createCardsAndModals.then(
-	cardModals(cardData)
-)
-.then(
-	response => cardDestroy(response)
-)
-// const modal = $.modal({
-// 	title: 'Модальное окно №1',
-// 	content: `<p class="modal__text">Lorem ipsum dolor sit.</p>
-// 		<p class="modal__text">Lorem ipsum dolor sit.</p>
-// 		<p class="modal__text">Lorem ipsum dolor sit.</p>`,
-// 	closable: true,
-// 	width: '400px',
-// 	buttons: [
-// 		{
-// 			text: 'Ok',
-// 			type: '',
-// 			handler() {
-// 				modal.close()
-// 			}
-// 		},
-// 		{
-// 			text: 'Cancel',
-// 			type: 'red',
-// 			handler() {
-// 				modal.close()
-// 			}
-// 		}
-// 	]
-// })
-function cardDestroy(handler) {
-	const cards = document.querySelectorAll('[data-card]')
-	if (cards) {
-		cards.forEach((card) => {
-			const destroyButton = card.querySelector('[data-destroy]')
-			destroyButton.addEventListener('click', (e) => {
-				handler.destroy(card)
-			})
-		})
-	}
-	
+const render = () => {
+	const cardsWrapper = document.querySelector('.row')
+	cardsWrapper.innerHTML = cardData.map((card) => toHtml(card)).join('')
 }
 
-function cardModals(data) {
-	const $cardsList = document.querySelectorAll('[data-card]')
-	const cardsObj = {}
-	if (data.length) {
-		data.forEach((card) => {
-			cardsObj[card.id] = card
-		})
+document.addEventListener('click', (event) => {
+	let button = event.target.dataset.btn
+	if (button === 'price') {
+		modal.open()
 	}
-	if ($cardsList.length) {
-		$cardsList.forEach((card) => {
-			const id = card.getAttribute('data-card')
-			const cardObj = cardsObj[id]
-			const $priceButton = card.querySelector('[data-price]')
-			$priceButton.addEventListener('click', () => {
-				const modal = $.modal({
-					title: cardObj.title,
-					content: `
-						<img src="${cardObj.img}">
-						<p>Цена: ${cardObj.price} руб.</p>
-					`,
-					width: '700px',
-					closable: true,
-					buttons: [
-						{
-							text: 'Ok',
-							type: '',
-							handler() {
-								modal.close()
-							}
-						}
-					]
-				})
-				setTimeout(() => modal.open(), 100)
-				modal.onClose = () => setTimeout(() => modal.destroy(), 500) 
-			})
-		})
-	}
-}
+})
+
+render()
 
 
 

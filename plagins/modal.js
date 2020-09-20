@@ -23,6 +23,7 @@ function _createModal(options) {
 	const modal = document.createElement('div')
 	const MODAL_WIDTH = '600px'
 	modal.classList.add('modal')
+	modal.classList.add(`modal__${options.animation}`)
 	modal.insertAdjacentHTML('afterbegin', `
 		<div class="modal__overlay" data-close="true">
 			<div class="modal__window" style="width: ${options.width || MODAL_WIDTH}">
@@ -53,17 +54,13 @@ $.modal = function(options) {
 			!closing && $modal.classList.add('open')
 		},
 		close() {
-			this.onClose()
-			$modal.classList.remove('open')
-			$modal.classList.add('hide')
-			closing = true
-			setTimeout(() => {
-				closing = false
-				$modal.classList.remove('hide')
-			}, ANIMATION_SPEED)
-		},
-		onClose() {
-			console.log('Окно закрывается!')
+				$modal.classList.remove('open')
+				$modal.classList.add('hide')
+				closing = true
+				setTimeout(() => {
+					closing = false
+					$modal.classList.remove('hide')
+				}, ANIMATION_SPEED)
 		}
 	}
 
