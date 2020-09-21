@@ -1,17 +1,18 @@
 const confirm = (options) => {
 	return new Promise ((resolve, reject) => {
 		const confirmModal = $.modal({
-			title: 'Вы уверены?',
+			title: options.title,
 			closable: false,
 			width: '400px',
 			animation: 'from-top',
+			content: options.content,
 			buttons: [
 				{
 					text: 'Отменить',
 					type: 'green',
 					handler() {
 						confirmModal.close()
-						reject(console.log('Отмена удаления'))
+						reject()
 					}
 				},
 				{
@@ -19,11 +20,11 @@ const confirm = (options) => {
 					type: 'red',
 					handler() {
 						confirmModal.close()
-						resolve(console.log('Удаление окна'))
+						resolve()
 					}
 				}
 			]
 		})
-		confirmModal.open()
+		setTimeout( () => confirmModal.open(), 100) 
 	})
 }

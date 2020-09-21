@@ -51,16 +51,22 @@ document.addEventListener('click', (event) => {
 		priceModal.open()
 	} 
 	else if (button === 'remove') {
-		confirm()
+		confirm({
+			title: 'Вы уверены?',
+			content: `<p>Вы удаляете фрукт <strong>${card.title}</strong></p>`,
+			onClose() {
+				confirmModal.destroy()
+			}
+		})
 		.then (() => {
-			console.log(id)
+			console.log('Remove')
 			cardData.filter((item) =>{ 
 				return item.id !== id
 			})
 			console.log(cardData)
 			render()
 		}) 
-		.catch()
+		.catch(() => { console.log('Cancel')})
 	}
 })
 
